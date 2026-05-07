@@ -108,6 +108,8 @@ print("STEP 6: DATA SCALED")
 
 sequence_length = 10
 
+sequence_length = 10
+
 X_seq = []
 
 for i in range(sequence_length, len(X_scaled)):
@@ -115,7 +117,8 @@ for i in range(sequence_length, len(X_scaled)):
 
   X_seq = np.array(X_seq).astype(np.float32)
 
-print("STEP 7: SEQUENCE CREATED")
+
+  print("STEP 7: SEQUENCE CREATED")
 
 # ============================================================
 
