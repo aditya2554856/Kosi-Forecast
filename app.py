@@ -3,10 +3,7 @@ import pandas as pd
 import subprocess
 import os
 
-st.set_page_config(
-page_title="Kosi Basin Forecast",
-layout="wide"
-)
+st.set_page_config(page_title="Kosi Forecast", layout="wide")
 
 st.title("🌊 Kosi Basin Transformer Forecast System")
 
@@ -16,6 +13,8 @@ type=["xlsx"]
 )
 
 if uploaded_file is not None:
+
+
 df = pd.read_excel(uploaded_file)
 
 st.subheader("📊 Uploaded Data")
@@ -56,7 +55,7 @@ if st.button("🚀 Run Prediction"):
 
             st.dataframe(pred)
 
-            csv = pred.to_csv(index=False).encode('utf-8')
+            csv = pred.to_csv(index=False).encode("utf-8")
 
             st.download_button(
                 label="📥 Download Forecast CSV",
@@ -68,3 +67,4 @@ if st.button("🚀 Run Prediction"):
         else:
 
             st.error("❌ output.csv was not created")
+            
