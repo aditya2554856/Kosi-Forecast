@@ -1,63 +1,103 @@
-# app.py
-
-
 import streamlit as st
 import pandas as pd
+import subprocess
 import os
 
-st.set_page_config(page_title="Kosi Basin Forecast", layout="wide")
+# ============================================================
+
+# PAGE CONFIG
+
+# ============================================================
+
+st.set_page_config(
+page_title="Kosi Basin Forecast",
+layout="wide"
+)
+
+# ============================================================
+
+# TITLE
+
+# ============================================================
 
 st.title("🌊 Kosi Basin Transformer Forecast System")
 
+# ============================================================
+
+# FILE UPLOADER
+
+# ============================================================
+
 uploaded_file = st.file_uploader(
-    "📂 Upload Excel File",
-    type=["xlsx"]
+"📂 Upload Excel File",
+type=["xlsx"]
 )
+
+# ============================================================
+
+# PROCESS FILE
+
+# ============================================================
 
 if uploaded_file is not None:
 
-    # ============================================================
-    # READ FILE
-    # ============================================================
-    df = pd.read_excel(uploaded_file)
+```
+# READ DATA
+df = pd.read_excel(uploaded_file)
 
-    st.subheader("📊 Uploaded Data")
-    st.dataframe(df.head())
+st.subheader("📊 Uploaded Data")
 
-    # ============================================================
-    # SAVE INPUT FILE
-    # ============================================================
-    df.to_excel("input.xlsx", index=False)
+st.dataframe(df.head())
 
-    # ============================================================
-    # RUN PREDICTION SCRIPT
-    # ============================================================
-    if st.button("🚀 Run Prediction"):
+# SAVE INPUT
+df.to_excel("input.xlsx", index=False)
 
-        with st.spinner("Running Transformer model... Please wait..."):
+# RUN MODEL
+if st.button("🚀 Run Prediction"):
 
-            os.system("python predict.py")
+    with st.spinner("Running Transformer Model..."):
 
-        # ============================================================
-        # LOAD OUTPUT
-        # ============================================================
-        pred = pd.read_csv("output.csv")
-
-        st.success("✅ Prediction Completed!")
-
-        st.subheader("📈 Forecast Results")
-
-        st.dataframe(pred)
-
-        # ============================================================
-        # DOWNLOAD BUTTON
-        # ============================================================
-        csv = pred.to_csv(index=False).encode('utf-8')
-
-        st.download_button(
-            label="📥 Download Forecast CSV",
-            data=csv,
-            file_name="Kosi_Forecast.csv",
-            mime="text/csv"
+        result = subprocess.run(
+            ["python", "predict.py"],
+            capture_output=True,
+            text=True
         )
 
+    # SHOW TERMINAL OUTPUT
+    st.subheader("🖥 Prediction Logs")
+
+    st.text(result.stdout)
+
+    # SHOW ERRORS
+    if result.returncode != 0:
+
+        st.error("❌ Prediction Failed")
+
+        st.text(result.stderr)
+
+    else:
+
+        # CHECK OUTPUT EXISTS
+        if os.path.exists("output.csv"):
+
+            pred = pd.read_csv("output.csv")
+
+            st.success("✅ Prediction Completed!")
+
+            st.subheader("📈 Forecast Results")
+
+            st.dataframe(pred)
+
+            # DOWNLOAD BUTTON
+            csv = pred.to_csv(index=False).encode('utf-8')
+
+            st.download_button(
+                label="📥 Download Forecast CSV",
+                data=csv,
+                file_name="Kosi_Forecast.csv",
+                mime="text/csv"
+            )
+
+        else:
+
+            st.error("❌ output.csv was not created")
