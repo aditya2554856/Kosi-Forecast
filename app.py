@@ -2,8 +2,12 @@ import streamlit as st
 import pandas as pd
 import subprocess
 import os
+import sys
 
-st.set_page_config(page_title="Kosi Forecast", layout="wide")
+st.set_page_config(
+page_title="Kosi Forecast",
+layout="wide"
+)
 
 st.title("🌊 Kosi Basin Transformer Forecast System")
 
@@ -13,25 +17,34 @@ type=["xlsx"]
 )
 
 if uploaded_file is not None:
-    df = pd.read_excel(uploaded_file)
-    st.subheader("📊 Uploaded Data")
-    st.dataframe(df.head())
-    df.to_excel("input.xlsx", index=False)
 
+
+    df = pd.read_excel(uploaded_file)
+
+    st.subheader("📊 Uploaded Data")
+
+    st.dataframe(df.head())
+
+# SAVE INPUT FILE
+df.to_excel("input.xlsx", index=False)
+
+# RUN MODEL
 if st.button("🚀 Run Prediction"):
 
     with st.spinner("Running Transformer Model..."):
 
         result = subprocess.run(
-            ["python", "predict.py"],
+            [sys.executable, "predict.py"],
             capture_output=True,
             text=True
         )
 
+    # SHOW LOGS
     st.subheader("🖥 Prediction Logs")
 
     st.text(result.stdout)
 
+    # ERROR HANDLING
     if result.returncode != 0:
 
         st.error("❌ Prediction Failed")
@@ -40,6 +53,7 @@ if st.button("🚀 Run Prediction"):
 
     else:
 
+        # CHECK OUTPUT
         if os.path.exists("output.csv"):
 
             pred = pd.read_csv("output.csv")
@@ -50,6 +64,7 @@ if st.button("🚀 Run Prediction"):
 
             st.dataframe(pred)
 
+            # DOWNLOAD BUTTON
             csv = pred.to_csv(index=False).encode("utf-8")
 
             st.download_button(
@@ -62,3 +77,4 @@ if st.button("🚀 Run Prediction"):
         else:
 
             st.error("❌ output.csv was not created")
+```
