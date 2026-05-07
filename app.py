@@ -41,7 +41,7 @@ type=["xlsx"]
 
 if uploaded_file is not None:
 
-```
+
 # READ DATA
 df = pd.read_excel(uploaded_file)
 
