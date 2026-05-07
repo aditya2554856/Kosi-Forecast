@@ -1,6 +1,6 @@
 # app.py
 
-```python
+
 import streamlit as st
 import pandas as pd
 import os
@@ -60,4 +60,4 @@ if uploaded_file is not None:
             file_name="Kosi_Forecast.csv",
             mime="text/csv"
         )
-```
+
