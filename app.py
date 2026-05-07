@@ -14,14 +14,14 @@ type=["xlsx"]
 
 if uploaded_file is not None:
 
-```
-df = pd.read_excel(uploaded_file)
 
-st.subheader("📊 Uploaded Data")
+    df = pd.read_excel(uploaded_file)
 
-st.dataframe(df.head())
+    st.subheader("📊 Uploaded Data")
 
-df.to_excel("input.xlsx", index=False)
+    st.dataframe(df.head())
+
+    df.to_excel("input.xlsx", index=False)
 
 if st.button("🚀 Run Prediction"):
 
@@ -67,4 +67,4 @@ if st.button("🚀 Run Prediction"):
         else:
 
             st.error("❌ output.csv was not created")
-```
+
