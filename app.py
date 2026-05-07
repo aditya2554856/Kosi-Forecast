@@ -16,8 +16,6 @@ type=["xlsx"]
 )
 
 if uploaded_file is not None:
-
-
 df = pd.read_excel(uploaded_file)
 
 st.subheader("📊 Uploaded Data")
