@@ -15,8 +15,6 @@ type=["xlsx"]
 if uploaded_file is not None:
 
 
-
-
 df = pd.read_excel(uploaded_file)
 
 st.subheader("📊 Uploaded Data")
@@ -27,9 +25,6 @@ df.to_excel("input.xlsx", index=False)
 
 if st.button("🚀 Run Prediction"):
 
-
-
-    
     with st.spinner("Running Transformer Model..."):
 
         result = subprocess.run(
@@ -44,9 +39,6 @@ if st.button("🚀 Run Prediction"):
 
     if result.returncode != 0:
 
-
-
-        
         st.error("❌ Prediction Failed")
 
         st.text(result.stderr)
@@ -55,9 +47,6 @@ if st.button("🚀 Run Prediction"):
 
         if os.path.exists("output.csv"):
 
-
-
-            
             pred = pd.read_csv("output.csv")
 
             st.success("✅ Prediction Completed!")
@@ -78,4 +67,4 @@ if st.button("🚀 Run Prediction"):
         else:
 
             st.error("❌ output.csv was not created")
-            
+
