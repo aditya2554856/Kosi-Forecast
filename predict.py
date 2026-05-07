@@ -1,6 +1,6 @@
 # predict.py
 
-```python
+
 import os
 
 # ============================================================
@@ -160,4 +160,3 @@ for i, lead in enumerate(leads):
 output.to_csv("output.csv", index=False)
 
 print("STEP 10: OUTPUT SAVED")
-```
