@@ -1,52 +1,63 @@
+# app.py
+
+```python
 import streamlit as st
 import pandas as pd
 import os
 
-# ============================================================
-# TITLE
-# ============================================================
+st.set_page_config(page_title="Kosi Basin Forecast", layout="wide")
+
 st.title("🌊 Kosi Basin Transformer Forecast System")
 
-# ============================================================
-# FILE UPLOAD
-# ============================================================
 uploaded_file = st.file_uploader(
     "📂 Upload Excel File",
     type=["xlsx"]
 )
 
-# ============================================================
-# MAIN
-# ============================================================
-if uploaded_file:
+if uploaded_file is not None:
 
+    # ============================================================
+    # READ FILE
+    # ============================================================
     df = pd.read_excel(uploaded_file)
 
     st.subheader("📊 Uploaded Data")
     st.dataframe(df.head())
 
-    # Save uploaded file
-    df.to_excel("/Users/aditya/Desktop/input.xlsx", index=False)
+    # ============================================================
+    # SAVE INPUT FILE
+    # ============================================================
+    df.to_excel("input.xlsx", index=False)
 
-    if st.button("🔮 Run Transformer Prediction"):
+    # ============================================================
+    # RUN PREDICTION SCRIPT
+    # ============================================================
+    if st.button("🚀 Run Prediction"):
 
-        with st.spinner("Running Transformer Model..."):
+        with st.spinner("Running Transformer model... Please wait..."):
 
-            # Run prediction script
-            os.system("python /Users/aditya/Desktop/predict.py")
+            os.system("python predict.py")
 
-            # Load prediction
-            pred = pd.read_csv("/Users/aditya/Desktop/output.csv")
+        # ============================================================
+        # LOAD OUTPUT
+        # ============================================================
+        pred = pd.read_csv("output.csv")
 
-        st.success("✅ Prediction Completed")
+        st.success("✅ Prediction Completed!")
 
         st.subheader("📈 Forecast Results")
+
         st.dataframe(pred)
 
-        # Download
+        # ============================================================
+        # DOWNLOAD BUTTON
+        # ============================================================
+        csv = pred.to_csv(index=False).encode('utf-8')
+
         st.download_button(
-            label="📥 Download Forecast",
-            data=pred.to_csv(index=False),
-            file_name="Transformer_Predictions.csv",
+            label="📥 Download Forecast CSV",
+            data=csv,
+            file_name="Kosi_Forecast.csv",
             mime="text/csv"
         )
+```
