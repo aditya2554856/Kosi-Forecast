@@ -1,3 +1,6 @@
+# predict.py
+
+```python
 import os
 
 # ============================================================
@@ -21,7 +24,7 @@ print("STEP 1: STARTED")
 # ============================================================
 # LOAD INPUT DATA
 # ============================================================
-df = pd.read_excel("/Users/aditya/Desktop/input.xlsx")
+df = pd.read_excel("input.xlsx")
 
 print("STEP 2: DATA LOADED")
 
@@ -44,7 +47,7 @@ df['wl_roll3'] = df['wl'].rolling(3).mean()
 df.dropna(inplace=True)
 
 # ============================================================
-# 🔥 USE RECENT DATA ONLY
+# USE RECENT DATA ONLY IF VERY LARGE
 # ============================================================
 if len(df) > 365:
     df = df.tail(365)
@@ -69,9 +72,9 @@ X = df[features].values.astype(np.float32)
 print("STEP 4: FEATURES EXTRACTED")
 
 # ============================================================
-# LOAD TRAINING SCALER
+# LOAD SCALER
 # ============================================================
-scaler = joblib.load("/Users/aditya/Desktop/scaler.pkl")
+scaler = joblib.load("scaler.pkl")
 
 print("STEP 5: SCALER LOADED")
 
@@ -96,7 +99,6 @@ X_seq = np.array(X_seq).astype(np.float32)
 
 print("STEP 7: SEQUENCE CREATED")
 print(X_seq.shape)
-print(X_seq.dtype)
 
 # ============================================================
 # SAVE DATES
@@ -107,7 +109,7 @@ dates = df['date'].iloc[sequence_length:].reset_index(drop=True)
 # LOAD MODEL
 # ============================================================
 model = load_model(
-    "/Users/aditya/Desktop/kosi_transformer_model.keras",
+    "kosi_transformer_model.keras",
     compile=False
 )
 
@@ -155,6 +157,7 @@ for i, lead in enumerate(leads):
 # ============================================================
 # SAVE OUTPUT
 # ============================================================
-output.to_csv("/Users/aditya/Desktop/output.csv", index=False)
+output.to_csv("output.csv", index=False)
 
 print("STEP 10: OUTPUT SAVED")
+```
