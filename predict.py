@@ -37,8 +37,8 @@ df['date'] = pd.to_datetime(df['date'])
 # ============================================================
 
 for i in range(1, 6):
-df[f'wl_lag{i}']=df['wl'].shift(i)
-df['wl_roll3']=df['wl'].rolling(3).mean()
+df[f'wl_lag{i}'] = df['wl'].shift(i)
+df['wl_roll3'] = df['wl'].rolling(3).mean()
 
 # ============================================================
 
@@ -110,7 +110,7 @@ sequence_length = 10
 X_seq = []
 
 for i in range(sequence_length, len(X_scaled)):
-X_seq.append(X_scaled[i-sequence_length:i])
+  X_seq.append(X_scaled[i-sequence_length:i])
 
 X_seq = np.array(X_seq).astype(np.float32)
 
