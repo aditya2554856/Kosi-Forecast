@@ -130,10 +130,12 @@ dates = df['date'].iloc[sequence_length:].reset_index(drop=True)
 
 # ============================================================
 
-model = load_model(
+model = tf.keras.models.load_model(
 "kosi_transformer_model.keras",
-compile=False
+compile=False,
+safe_mode=False
 )
+
 
 print("STEP 8: MODEL LOADED")
 
