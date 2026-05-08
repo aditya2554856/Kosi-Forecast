@@ -110,9 +110,9 @@ sequence_length = 10
 X_seq = []
 
 for i in range(sequence_length, len(X_scaled)):
-X_seq.append(X_scaled[i-sequence_length:i])
+  X_seq.append(X_scaled[i-sequence_length:i])
 
-X_seq = np.array(X_seq).astype(np.float32)
+  X_seq = np.array(X_seq).astype(np.float32)
 
 print("STEP 7: SEQUENCE CREATED")
 
