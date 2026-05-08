@@ -38,7 +38,6 @@ df['date'] = pd.to_datetime(df['date'])
 
 for i in range(1, 6):
 df[f'wl_lag{i}'] = df['wl'].shift(i)
-
 df['wl_roll3'] = df['wl'].rolling(3).mean()
 
 # ============================================================
