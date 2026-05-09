@@ -29,7 +29,7 @@ if np.issubdtype(df['date'].dtype, np.number):
     unit='D'
 )
 else:
-df['date'] = pd.to_datetime(df['date'])
+    df['date'] = pd.to_datetime(df['date'])
 
 
     st.subheader("📊 Uploaded Data")
