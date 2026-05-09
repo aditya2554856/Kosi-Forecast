@@ -1,3 +1,4 @@
+import numpy as np
 import streamlit as st
 import pandas as pd
 import subprocess
@@ -20,6 +21,16 @@ if uploaded_file is not None:
 
 
     df = pd.read_excel(uploaded_file)
+
+    if np.issubdtype(df['date'].dtype, np.number):
+df['date'] = pd.to_datetime(
+df['date'],
+origin='1899-12-30',
+unit='D'
+)
+else:
+df['date'] = pd.to_datetime(df['date'])
+
 
     st.subheader("📊 Uploaded Data")
 
