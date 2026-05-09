@@ -22,7 +22,7 @@ if uploaded_file is not None:
 
     df = pd.read_excel(uploaded_file)
 
-    if np.issubdtype(df['date'].dtype, np.number):
+if np.issubdtype(df['date'].dtype, np.number):
 df['date'] = pd.to_datetime(
 df['date'],
 origin='1899-12-30',
