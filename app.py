@@ -12,27 +12,6 @@ layout="wide"
 
 st.title("🌊 Kosi Basin Transformer Forecast System")
 
-with st.expander("📊 Model Test Performance"):
-
-
-    st.markdown("""
-### Transformer Model Testing Results
-
-**Train-Test Split:** 80:20  
-**Sequence Length:** 10  
-**Forecast Leads:** 1, 3, 5, 7, 10 Days
-
-| Lead Time | R | RMSE | NSE | MAE | KGE |
-|------------|----|------|------|------|------|
-| 1 Day | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE |
-| 3 Day | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE |
-| 5 Day | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE |
-| 7 Day | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE |
-| 10 Day | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE | YOUR_VALUE |
-
-""")
-
-
 uploaded_file = st.file_uploader(
 "📂 Upload Excel File",
 type=["xlsx"]
