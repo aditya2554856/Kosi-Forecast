@@ -28,11 +28,19 @@ print("STEP 2: DATA LOADED")
 
 # ============================================================
 
+if np.issubdtype(df['date'].dtype, np.number):
+
+
 df['date'] = pd.to_datetime(
-df['date'],
-origin='1899-12-30',
-unit='D'
+    df['date'],
+    origin='1899-12-30',
+    unit='D'
 )
+
+else:
+
+df['date'] = pd.to_datetime(df['date'])
+
 
 # ============================================================
 
