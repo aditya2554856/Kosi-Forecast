@@ -38,7 +38,7 @@ if np.issubdtype(df['date'].dtype, np.number):
 
 else:
 
-df['date'] = pd.to_datetime(df['date'])
+    df['date'] = pd.to_datetime(df['date'])
 
 
 # ============================================================
